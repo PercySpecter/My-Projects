@@ -26,6 +26,10 @@ public class Main
 		}
 	}
 	
+	
+	/**
+	* The game starts here
+	*/
 	static void playGame()
 	{
 		Scanner sc = new Scanner(System.in);
