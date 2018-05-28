@@ -47,7 +47,7 @@ public class Result
         window.setScene(scene);
         window.showAndWait();
         
-        return playAgain;
+        return playAgain; 
     }
     
     private static void replayGame(boolean replay)

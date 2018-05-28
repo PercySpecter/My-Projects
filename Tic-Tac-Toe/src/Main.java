@@ -20,56 +20,6 @@ public class Main extends Application
 	static Game game;
 	static BorderPane border;
 	static Text Player1 , Player2;
-
-	
-	/**
-	 * to print the move number for each cell as a guide
-	 */
-	/*public static void printGuide() 
-	{
-		System.out.println("Input cell number as follows during your turn to make a move:");
-		for(int i = 0; i < 3; i++)
-		{
-			for(int j = 0; j < 3; j++)
-			{
-				if(j == 2)
-					System.out.println(" " + (3 * i + j + 1));
-				else
-					System.out.print(" " + (3 * i + j + 1) + " |");
-			}
-			if(i != 2)
-				System.out.println("-----------");
-			else
-				System.out.println();
-		}
-	}*/
-	
-	/**
-	 * The game starts here
-	 */
-	/*public static void playGame()
-	{
-		Scanner sc = new Scanner(System.in);
-		System.out.println("TIC - TAC - TOE\n~~~~~~~~~~~~~~~~~~~");
-		printGuide();
-		boolean play = true;
-		while(play)
-		{
-			System.out.println();
-			game = new Game();
-			//game.playGame();
-			
-			play = false;
-			System.out.println("\nPlay again? (Y / N)");
-			char c = sc.next().charAt(0);
-			if(c == 'y' || c == 'Y')
-				play = true;
-		}
-		
-		System.out.println("Thank You for playing!!");
-		
-		sc.close();
-	}*/
 	
 	public static void main(String[] args) 
 	{
@@ -102,10 +52,12 @@ public class Main extends Application
 		for(int i = 0; i < 9; i++)
 		{
 			final int move = i + 1;
+			
 			button[i] = new Button();
-			//Image iconImage = new Image("./icon/blank.png");
+
 			Image iconImage = new Image("/icons/blank.png");
 			ImageView icon = new ImageView(iconImage);
+			
 			button[i].setGraphic(icon);
 			button[i].setOnAction(e -> onMove(move));
 		}
@@ -136,22 +88,25 @@ public class Main extends Application
 	private static void onMove(int move)
 	{
 		int turn = game.turn;
-		//Image iconImage = new Image("./icon/" + (turn == 1 ? "cross.png" : "circle.png"));
+		
 		Image iconImage = new Image(turn == 1 ? "/icons/cross.png" : "/icons/circle.png");
 		
 		ImageView icon = new ImageView(iconImage);
 		button[move - 1].setGraphic(icon);
-		game.playGame(move);
+		boolean gameOver = game.playGame(move);
 		
-		if(turn == 1)
+		if(!gameOver)
 		{
-			border.setTop(Player2);
-			BorderPane.setAlignment(Player2 , Pos.CENTER);
-		}
-		else if(turn == 2)
-		{
-			border.setTop(Player1);
-			BorderPane.setAlignment(Player1 , Pos.CENTER);
+			if(turn == 1)
+			{
+				border.setTop(Player2);
+				BorderPane.setAlignment(Player2 , Pos.CENTER); 
+			}
+			else if(turn == 2)
+			{
+				border.setTop(Player1);
+				BorderPane.setAlignment(Player1 , Pos.CENTER);
+			}
 		}
 	}
 	

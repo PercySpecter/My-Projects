@@ -25,11 +25,6 @@ public class Game
 	 */
 	public void createPlayers()
 	{
-		/*Scanner sc = new Scanner(System.in);
-		System.out.println("Enter name of 1st player(no spaces):");
-		p1 = new HumanPlayer(sc.next() , 1);
-		System.out.println("Enter name of 2nd player(no spaces):");
-		p2 = new HumanPlayer(sc.next() , 2);*/
 		p1 = new HumanPlayer("Player 1" , 1);
 		p2 = new HumanPlayer("Player 2" , 2);
 	}
@@ -157,36 +152,12 @@ public class Game
 		return move;
 	}
 	
-	/*public void playGame()
-	{
-		int isOver = isOver();
-		turn = 1;
-		int move;
-		while(isOver == 0)
-		{
-			System.out.println();
-			printGrid();
-			move = makeMove();
-			while(!isValidMove(move))
-			{
-				System.out.println("Invalid move!!");
-				move = makeMove();
-			}
-			placeMove(turn , move);
-			isOver = isOver();
-			turn = 3 - turn;	//toggle turn between 1 and 2
-		}
-		
-		printGrid();
-		if(isOver == 1)
-			System.out.println(p1.name + " wins!!");
-		else if(isOver == 2)
-			System.out.println(p2.name + " wins!!");
-		else
-			System.out.println("Game Draw!!");
-	}*/
-	
-	public void playGame(int move)
+	/**
+	 * 
+	 * @param move : the input move
+	 * @return whether current game is over or not
+	 */
+	public boolean playGame(int move)
 	{
 		boolean playAgain = false;
 		placeMove(turn , move);
@@ -204,11 +175,13 @@ public class Game
 			if(playAgain)
 			{
 				Main.reset();
+				return true;
 			}
 			else
 			{
-				System.exit(0);
+				System.exit(0); 
 			}
 		}
+		return false;
 	}
 }
