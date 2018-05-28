@@ -14,10 +14,13 @@ import javafx.stage.*;
 public class Main extends Application
 {
 	
-	Stage window;
-	Scene scene;
-	Button button[] = new Button[9];
+	static Stage window;
+	static Scene scene;
+	static Button button[] = new Button[9];
 	static Game game;
+	static BorderPane border;
+	static Text Player1 , Player2;
+
 	
 	/**
 	 * to print the move number for each cell as a guide
@@ -71,7 +74,7 @@ public class Main extends Application
 	public static void main(String[] args) 
 	{
 		game = new Game();
-		launch();
+		launch(args);
 	}
 
 	@Override
@@ -79,18 +82,29 @@ public class Main extends Application
 	{
 		window = primaryStage;
 		window.setTitle("Tic-Tac-Toe");
-		BorderPane border = new BorderPane();
 		
-		Text title = new Text("TIC-TAC-TOE");
-		title.setFont(Font.font("Gothic" , FontWeight.BOLD , 24));
-		border.setTop(title);
-		BorderPane.setAlignment(title , Pos.CENTER);
+		Player1 = new Text("Player 1's turn");
+		Player2 = new Text("Player 2's turn");
+		Player1.setFont(Font.font("Gothic" , FontWeight.BOLD , 24));
+		Player2.setFont(Font.font("Gothic" , FontWeight.BOLD , 24));
+		
+		initialiseScene();
+	}
+	
+	
+	
+	private static void initialiseScene()
+	{
+		border = new BorderPane();
+		border.setTop(Player1);
+		BorderPane.setAlignment(Player1 , Pos.CENTER);
 		
 		for(int i = 0; i < 9; i++)
 		{
 			final int move = i + 1;
 			button[i] = new Button();
-			Image iconImage = new Image("./icon/blank.png");
+			//Image iconImage = new Image("./icon/blank.png");
+			Image iconImage = new Image("/icons/blank.png");
 			ImageView icon = new ImageView(iconImage);
 			button[i].setGraphic(icon);
 			button[i].setOnAction(e -> onMove(move));
@@ -103,10 +117,9 @@ public class Main extends Application
 		
 		window.setScene(scene);
 		window.show();
-		
 	}
 	
-	private GridPane makeGrid()
+	private static GridPane makeGrid()
 	{
 		GridPane grid = new GridPane();
 		grid.setHgap(10);
@@ -120,14 +133,31 @@ public class Main extends Application
 		return grid;
 	}
 	
-	private void onMove(int move)
+	private static void onMove(int move)
 	{
 		int turn = game.turn;
-		Image iconImage = new Image("./icon/" + (turn == 1 ? "cross.png" : "circle.png"));
+		//Image iconImage = new Image("./icon/" + (turn == 1 ? "cross.png" : "circle.png"));
+		Image iconImage = new Image(turn == 1 ? "/icons/cross.png" : "/icons/circle.png");
 		
 		ImageView icon = new ImageView(iconImage);
 		button[move - 1].setGraphic(icon);
 		game.playGame(move);
+		
+		if(turn == 1)
+		{
+			border.setTop(Player2);
+			BorderPane.setAlignment(Player2 , Pos.CENTER);
+		}
+		else if(turn == 2)
+		{
+			border.setTop(Player1);
+			BorderPane.setAlignment(Player1 , Pos.CENTER);
+		}
 	}
 	
+	public static void reset()
+	{
+		initialiseScene();
+		game = new Game();
+	}
 }

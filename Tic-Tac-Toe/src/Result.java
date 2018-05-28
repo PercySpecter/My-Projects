@@ -18,6 +18,7 @@ public class Result
         window.setTitle(title);
         window.setMinWidth(250);
         
+        BorderPane border = new BorderPane();
 
         Label label = new Label();
         label.setText(message);
@@ -35,12 +36,14 @@ public class Result
         	window.close();
         });
         
-        HBox layout = new HBox(10);
-        layout.getChildren().addAll(label , playButton , exitButton);
-        layout.setAlignment(Pos.CENTER);
+        HBox buttons = new HBox(10);
+        buttons.getChildren().addAll(playButton , exitButton);
+        buttons.setAlignment(Pos.CENTER);
 
-        //Display window and wait for it to be closed before returning
-        Scene scene = new Scene(layout);
+        border.setTop(label);
+        border.setBottom(buttons);
+        
+        Scene scene = new Scene(border);
         window.setScene(scene);
         window.showAndWait();
         

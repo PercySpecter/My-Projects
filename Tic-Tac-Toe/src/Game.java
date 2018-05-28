@@ -1,6 +1,4 @@
 
-import java.util.*;
-
 public class Game 
 {
 	int grid[][];	//grid to store moves
@@ -27,11 +25,13 @@ public class Game
 	 */
 	public void createPlayers()
 	{
-		Scanner sc = new Scanner(System.in);
+		/*Scanner sc = new Scanner(System.in);
 		System.out.println("Enter name of 1st player(no spaces):");
 		p1 = new HumanPlayer(sc.next() , 1);
 		System.out.println("Enter name of 2nd player(no spaces):");
-		p2 = new HumanPlayer(sc.next() , 2);
+		p2 = new HumanPlayer(sc.next() , 2);*/
+		p1 = new HumanPlayer("Player 1" , 1);
+		p2 = new HumanPlayer("Player 2" , 2);
 	}
 	
 	
@@ -194,16 +194,16 @@ public class Game
 		turn = 3 - turn;	//toggle turn between 1 and 2											
 		
 		if(isOver == 1)
-			playAgain = Result.display("Game Over" , p1.name + "WINS!");
+			playAgain = Result.display("Game Over" , p1.name + " WINS!");
 		else if(isOver == 2)
-			playAgain = Result.display("Game Over" , p2.name + "WINS!");
+			playAgain = Result.display("Game Over" , p2.name + " WINS!");
 		else if(isOver == -1)
 			playAgain = Result.display("Game Over" , "GAME DRAWN!");
-		if(isOver == 0)
+		if(isOver != 0)
 		{
 			if(playAgain)
 			{
-				Main.main(new String[0]);
+				Main.reset();
 			}
 			else
 			{
